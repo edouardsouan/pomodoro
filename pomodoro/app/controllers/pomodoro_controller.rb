@@ -1,5 +1,6 @@
 class PomodoroController < ApplicationController
   def new
-    return "test"
+    @time = Time.new
+    @test = "test"
   end
 end
