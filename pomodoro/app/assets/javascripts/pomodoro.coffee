@@ -5,8 +5,9 @@ ready = ->
   nbSession = 0;
   $('#session').on 'click', (e) ->
     $(this).removeClass('btn-success').addClass('btn-warning disabled').html('RUNNING');
+    clearIntervall(idInterval) if idInterval;
     nbSession++
-    timer(nbSession)
+    idInterval = timer(nbSession);
 
 timer = (session)->
   elmtTime = $('#time');
@@ -14,15 +15,23 @@ timer = (session)->
   nbSession = ['First', 'Second', 'Third', 'Fourth'];
   elmtTitle.html(nbSession[session-1]+" Session");
   sessionDuration = 25 * 60000;
-  setInterval () ->
-      seconds = (sessionDuration / 1000) % 60;
-      minutes = Math.floor((sessionDuration / 60000) % 60);
-      seconds = "0"+seconds if seconds<10;
-      minutes = "0"+minutes if minutes<10;
+  interval = setInterval () ->
+      seconds = formatSeconds(sessionDuration);
+      minutes = formatMinutes(sessionDuration);
       elmtTime.html(minutes+":"+seconds);
       sessionDuration-=1000;
     , 1000
-  return
+  return interval;
+
+formatSeconds = (secondToFormat) ->
+  seconds = (secondToFormat / 1000) % 60;
+  seconds = "0"+seconds if seconds<10;
+  return seconds
+
+formatMinutes = (minutesToFormat) ->
+  minutes = Math.floor((minutesToFormat / 60000) % 60);
+  minutes = "0"+minutes if minutes<10;
+  return minutes;
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
