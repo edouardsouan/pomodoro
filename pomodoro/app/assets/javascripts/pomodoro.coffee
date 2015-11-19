@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
   nbSession = 0;
-  $('#startSession').on 'click', (e) ->
+  $('#session').on 'click', (e) ->
+    $(this).removeClass('btn-success').addClass('btn-warning disabled').html('RUNNING');
     nbSession++
     timer(nbSession)
 
@@ -17,6 +18,7 @@ timer = (session)->
       seconds = (sessionDuration / 1000) % 60;
       minutes = Math.floor((sessionDuration / 60000) % 60);
       seconds = "0"+seconds if seconds<10;
+      minutes = "0"+minutes if minutes<10;
       elmtTime.html(minutes+":"+seconds);
       sessionDuration-=1000;
     , 1000
