@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  completedSession: 
+  abortedSession: 
+  date: 2015-11-24
+
+two:
+  completedSession: 
+  abortedSession: 
+  date: 2015-11-24
